@@ -10,7 +10,7 @@ public class TRMSJavalinDriver {
 	private static AuthController authController = new AuthController();
 	private static ReimbursementController reimburseController = new ReimbursementController();
 	private static final String EMPLOYEE_PATH = "/employee";
-	private static final String LOGIN_PATH = "/TRMS";
+	private static final String LOGIN_PATH = "/login";
 
 	public static void main(String[] args) {
 		
