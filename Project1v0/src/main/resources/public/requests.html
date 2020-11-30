@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="request.css">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRMS Requests</title>
+</head>
+
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="/employee" id="home">Home</a>
+        <a href="/logout" id="logout">Logout</a>
+    </div>
+
+    <div class="main">
+
+        <h1>Requests Form</h1>
+        <form id="requests-form" name="requests-form" action="" method=POST>
+            <!--<label for="training_address">Address</label>
+        <input type=text name="employee_id"></input>-->
+            <div>
+                <label for="training_date">Training Date</label>
+                <input type=date id="date" name="training_date" required></input>
+            </div>
+            <div>
+                <label for="training_time">Training Start Time</label>
+                <input type=time name="training_time" required></input>
+            </div>
+            <div>
+
+                <label for="training_zipcode">Training Zipcode</label>
+                <input type=text name="training_zipcode" required></input>
+            </div>
+
+            <div>
+
+                <label for="training_address">Training Address</label>
+                <input type=text id="training_address" name="training_address" required></input>
+            </div>
+            <div>
+
+                <label for="training_state">State</label>
+                <input type=text name="training_state" required></input>
+            </div>
+            <div>
+
+                <label for="training_cost">Training Cost:</label>
+                <input id="training_cost" name="training_cost" type="number" max="1000" min="1" step=".01" required />
+            </div>
+            <div>
+
+                <label for="description">Description</label>
+                <input name="description" type=text required></input>
+            </div>
+            <div>
+
+                <label for="priority">Priority:</label>
+                <select id="priority" name="priority" required>
+                    <option value="True">True</option>
+                    <option selected value="False">False</option>
+                </select>
+
+            </div>
+            <div>
+                <label for="training_type">Type of training:</label>
+
+                <select id="training_type" name="training_type" required>
+                    <option value="SEMINAR">Seminar</option>
+                    <option value="CERTIFICATION">Certification</option>
+                    <option value="TRAINING">Training</option>
+                    <option value="COURSE">University Course</option>
+                    <option value="CERT_PREP">Certification Prep</option>
+                    <option value="OTHER">Other</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="hours_missed">Hours Missed</label>
+                <input name=hours_missed type=number required></input>
+            </div>
+
+            <div>
+                <label for="justification">Justification</label>
+                <input name=justification type=text required></input>
+            </div>
+            <button class="submit" type=submit>Submit</button>
+
+        </form>
+    </div>
+    <script src='requestor.js'></script>
+
+</body>
+
+</html>
