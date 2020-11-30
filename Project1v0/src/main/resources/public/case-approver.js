@@ -320,6 +320,7 @@ let populateHome = function (reimbursement, employee, requestor) {
         coverageInput.type = "number";
         coverageInput.step = "0.1";
         coverageInput.max = "1";
+        coverageInput.min = "0";
         coverageButton = document.createElement("button");
         coverageButton.innerHTML = "Edit coverage";
         coverageButton.type = "submit";

@@ -273,6 +273,11 @@ public void updateEmployeeApproval(Context ctx) {
 			reimburseDao.finalApproval(case_id, TRMS_STATUS.DECLINED);
 			ctx.redirect("/pending");
 		}
+	if (reimbursement.getEmployee_approval() == TRMS_STATUS.DECLINED) {
+		System.out.println("Should set final approval to declined because employee declined");
+		employeeDao.setAllocatedFunds(reimbursement.getEmployee_id(), reimburseDao.getAllocatedFunds(reimbursement.getEmployee_id()));
+		reimburseDao.finalApproval(case_id,(TRMS_STATUS.DECLINED));
+	}
 	
 	
 	ctx.redirect("/case");

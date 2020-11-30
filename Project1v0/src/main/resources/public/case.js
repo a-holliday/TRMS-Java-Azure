@@ -79,6 +79,8 @@ window.onload = function () {
 
     }
 
+
+
 }
 
 let populateHome = function (reimbursement) {
@@ -116,6 +118,7 @@ let populateHome = function (reimbursement) {
     let dateInput = document.createElement("input");
     dateInput.name = "training_date";
     dateInput.type = "date";
+    dateInput.id = "date";
     let dateButton = document.createElement("button");
     dateButton.type = "submit";
     dateButton.className = "submit";
@@ -138,6 +141,8 @@ let populateHome = function (reimbursement) {
     timeForm.method = "POST";
     let timeInput = document.createElement("input");
     timeInput.type = "time";
+    timeInput.min = "08:00";
+    timeInput.max = "17:00";
     timeInput.name = "training_time";
     let timeButton = document.createElement("button");
     timeButton.type = "submit";
@@ -424,6 +429,8 @@ let populateHome = function (reimbursement) {
     let hoursInput = document.createElement("input");
     hoursInput.type = "number";
     hoursInput.name = "hours_missed";
+    hoursInput.max = "8";
+    hoursInput.min = "0";
     let hoursButton = document.createElement("button");
     hoursButton.type = "submit";
     hoursButton.className = "submit";
@@ -508,6 +515,15 @@ let populateHome = function (reimbursement) {
     let brk = document.createElement("br");
     document.querySelector("body").appendChild(brk);
     document.querySelector("body").appendChild(brk);
+
+    let now = new Date();
+    now.setDate(now.getDate() + 7);
+    let myDate = now;
+    const offset = myDate.getTimezoneOffset()
+    myDate = new Date(myDate.getTime() - (offset * 60 * 1000))
+    myDate = myDate.toISOString().split('T')[0]
+
+    document.getElementById("date").setAttribute("min", myDate);
 
 
 }
