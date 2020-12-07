@@ -1,15 +1,4 @@
 
-document.addEventListener("DOMContentLoaded", function (event) {
-    let scrollpos = localStorage.getItem('scrollpos');
-    if (scrollpos) {
-        window.focus();
-        window.scrollTo(0, scrollpos);
-    }
-});
-
-window.onbeforeunload = function (e) {
-    localStorage.setItem('scrollpos', window.scrollY);
-};
 
 console.log("JS Connected");
 function getCookie(cname) {
@@ -32,58 +21,83 @@ function getCookie(cname) {
 
 window.onload = function () {
 
+    console.log("Inside window load function");
 
-    if (getCookie("employee_id") == "") {
+    //AJAX - Asynchronous JavaScript and XML
+    //Initialize xhr object
+    let xhr = new XMLHttpRequest();
+    let xhr2 = new XMLHttpRequest();
+    //console.log(getCookie("employee_id"))
+    const url = "/case/" + getCookie("case_id");
+    //sets up ready state handler
+    xhr.onreadystatechange = function () {
+        console.log(xhr.readyState);
+        switch (xhr.readyState) {
 
-    }
-    else {
-        //AJAX - Asynchronous JavaScript and XML
-        //Initialize xhr object
-        let xhr = new XMLHttpRequest();
-        //console.log(getCookie("employee_id"))
-        const url = "/case/" + getCookie("case_id");
-        //sets up ready state handler
-        xhr.onreadystatechange = function () {
-            console.log(xhr.readyState);
-            switch (xhr.readyState) {
+            case 0:
+                console.log(xhr.readyState)
+                break;
+            case 1:
+                console.log(xhr.readyState)
 
-                case 0:
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
+                break;
+            case 2:
+                console.log(xhr.readyState)
 
-                    if (xhr.status === 200) {
-                        console.log(xhr.responseText);
-                        let reimbursement = JSON.parse(xhr.responseText);
+                break;
+            case 3:
+                console.log(xhr.readyState)
 
-                        populateHome(reimbursement);
+                break;
+            case 4:
+                console.log(xhr.readyState)
+
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    let reimbursement = JSON.parse(xhr.responseText);
+                    let url2 = "/attachments/" + reimbursement.case_id;
+
+
+                    xhr2.open("GET", url2, true);
+
+                    xhr2.send();
+
+                    xhr2.onreadystatechange = function () {
+                        if (xhr2.readyState == 4 && xhr2.status === 200) {
+                            attachments = JSON.parse(xhr2.responseText);
+
+
+                            populateHome(reimbursement, attachments);
+
+
+
+
+                        }
+
 
 
 
                     }
-                    break;
 
-            }
+
+                }
+
         }
 
 
-        //opens up the request
-        xhr.open("GET", url, true);
-        //sends request
-        xhr.send();
+
 
     }
 
+    //opens up the request
+    xhr.open("GET", url, true);
+    //sends request
+    xhr.send();
 
 
 }
 
-let populateHome = function (reimbursement) {
+let populateHome = function (reimbursement, attachments) {
     let table = document.createElement("table");
 
     let tr_case_id = document.createElement("div")
@@ -119,6 +133,7 @@ let populateHome = function (reimbursement) {
     dateInput.name = "training_date";
     dateInput.type = "date";
     dateInput.id = "date";
+    dateInput.required = "true";
     let dateButton = document.createElement("button");
     dateButton.type = "submit";
     dateButton.className = "submit";
@@ -144,6 +159,7 @@ let populateHome = function (reimbursement) {
     timeInput.min = "08:00";
     timeInput.max = "17:00";
     timeInput.name = "training_time";
+    timeInput.required = "true";
     let timeButton = document.createElement("button");
     timeButton.type = "submit";
     timeButton.className = "submit";
@@ -166,6 +182,7 @@ let populateHome = function (reimbursement) {
     let zipcodeInput = document.createElement("input");
     zipcodeInput.type = "text";
     zipcodeInput.name = "training_zipcode";
+    zipcodeInput.required = "true";
     let zipcodeButton = document.createElement("button");
     zipcodeButton.type = "submit";
     zipcodeButton.className = "submit";
@@ -188,6 +205,7 @@ let populateHome = function (reimbursement) {
     let addressInput = document.createElement("input");
     addressInput.type = "text";
     addressInput.name = "training_address";
+    addressInput.required = "true";
     let addressButton = document.createElement("button");
     addressButton.type = "submit";
     addressButton.className = "submit";
@@ -209,6 +227,7 @@ let populateHome = function (reimbursement) {
     let stateInput = document.createElement("input");
     stateInput.type = "text";
     stateInput.name = "training_state";
+    stateInput.required = "true";
     let stateButton = document.createElement("button");
     stateButton.type = "submit";
     stateButton.className = "submit";
@@ -236,6 +255,7 @@ let populateHome = function (reimbursement) {
         costInput.max = "1000";
         costInput.step = "0.01";
         costInput.name = "training_cost";
+        costInput.required = "true";
         let costButton = document.createElement("button");
         costButton.type = "submit";
         costButton.className = "submit";
@@ -405,6 +425,7 @@ let populateHome = function (reimbursement) {
     justificationForm.method = "POST";
     let justificationInput = document.createElement("input");
     justificationInput.type = "text";
+    justificationInput.required = "true";
     justificationInput.name = "justification";
     let justificationButton = document.createElement("button");
     justificationButton.type = "submit";
@@ -431,6 +452,7 @@ let populateHome = function (reimbursement) {
     hoursInput.name = "hours_missed";
     hoursInput.max = "8";
     hoursInput.min = "0";
+    hoursInput.required = "true";
     let hoursButton = document.createElement("button");
     hoursButton.type = "submit";
     hoursButton.className = "submit";
@@ -500,6 +522,7 @@ let populateHome = function (reimbursement) {
     let descriptionInput = document.createElement("input");
     descriptionInput.type = "text";
     descriptionInput.name = "description";
+    descriptionInput.required = "true";
     let descriptionButton = document.createElement("button");
     descriptionButton.type = "submit";
     descriptionButton.className = "submit";
@@ -508,6 +531,107 @@ let populateHome = function (reimbursement) {
     td_description.appendChild(descriptionForm);
     descriptionForm.appendChild(descriptionButton);
 
+    let tr_attachment = document.createElement("div");
+
+
+    let attachmentForm = document.createElement("form");
+    attachmentForm.method = "POST";
+    attachmentForm.action = "/attachment/" + reimbursement.case_id;
+    attachmentForm.enctype = 'multipart/form-data';
+    let attachmentInput = document.createElement("input");
+    attachmentInput.type = "file";
+    attachmentInput.required = "true";
+    attachmentInput.multiple = "true";
+    attachmentInput.name = "files";
+    let attachmentButton = document.createElement("button");
+    attachmentButton.className = "submit";
+    attachmentButton.type = "submit";
+    attachmentButton.innerHTML = "Add File";
+    attachmentForm.appendChild(attachmentInput);
+    attachmentForm.appendChild(attachmentButton);
+    tr_attachment.appendChild(attachmentForm);
+
+    for (attachment of attachments) {
+        console.log(attachment);
+        let preString;
+        let attachmentlink = document.createElement("a");
+        attachmentlink.innerHTML = attachment.attachmentName;
+        let extension = attachment.attachmentName.split(".").pop();
+        switch (extension) {
+            case 'png':
+                preString = "data:image/png;base64,";
+                break;
+
+            case 'jpg':
+            case 'jpeg':
+                preString = "data:image/jpeg;base64,";
+                break;
+            case 'pdf':
+                preString = "application/pdf";
+                break;
+            case 'ppt':
+                preString = "application/vnd.ms-powerpoint";
+                break;
+            case 'msg':
+                preString = "application/vnd.ms-outlook";
+                break;
+        }
+
+
+        attachmentlink.style.display = "block";
+        attachmentlink.download = attachment.attachmentName;
+        attachmentlink.href = preString + attachment.attachmentData;
+        tr_attachment.appendChild(attachmentlink);
+
+    }
+
+    table.appendChild(tr_attachment);
+
+
+    let tr_message = document.createElement("div");
+    let messageHeader = document.createElement("h3");
+    messageHeader.innerHTML = "Send Message";
+    let messageForm = document.createElement("form");
+    messageForm.method = "POST";
+    messageForm.action = "/message/pending/" + reimbursement.case_id + "/" + getCookie("employee_id");
+
+    let messageSubjectInput = document.createElement("input");
+    messageSubjectInput.type = "text";
+    messageSubjectInput.style.display = "block";
+    messageSubjectInput.placeholder = "Subject"
+    messageSubjectInput.required = "true";
+    messageSubjectInput.name = "subject";
+
+    let messageRecieverInput = document.createElement("input");
+    messageRecieverInput.placeholder = "Reciever";
+    messageRecieverInput.style.display = "block";
+    messageRecieverInput.type = "text";
+    messageRecieverInput.required = "true"
+    messageRecieverInput.name = "reciever";
+
+    let messageBodyInput = document.createElement("textarea");
+    messageBodyInput.style.height = "200px";
+    messageBodyInput.style.display = "block";
+    messageBodyInput.placeholder = "Enter message here...";
+    messageBodyInput.required = "true";
+    messageBodyInput.name = "body";
+
+    messageSubjectInput.className = "send";
+    messageRecieverInput.className = "send";
+    messageBodyInput.className = "send";
+
+    let messageButton = document.createElement("button");
+    messageButton.className = "submit";
+    messageButton.type = "submit";
+    messageButton.innerHTML = "Send";
+
+    messageForm.appendChild(messageSubjectInput);
+    messageForm.appendChild(messageRecieverInput);
+    messageForm.appendChild(messageBodyInput);
+    messageForm.appendChild(messageButton);
+    tr_message.appendChild(messageHeader);
+    tr_message.appendChild(messageForm);
+    table.appendChild(tr_message);
 
 
 

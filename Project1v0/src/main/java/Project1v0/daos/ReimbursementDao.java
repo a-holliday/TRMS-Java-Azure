@@ -10,7 +10,7 @@ import Project1v0.enums.TRMS_EVENT;
 import Project1v0.enums.TRMS_GRADE_FORMAT;
 import Project1v0.enums.TRMS_ROLE;
 import Project1v0.enums.TRMS_STATUS;
-import Project1v0.pojos.TRMSNotes;
+import Project1v0.pojos.TRMSMessage;
 import Project1v0.pojos.TRMSReimbursement;
 
 
@@ -687,54 +687,9 @@ public boolean updateTrainingGrade(int case_id, TRMS_GRADE_FORMAT grade) {
 	
 }
 
-public boolean createNote (int case_id, String body, int employee_id) {
-	String insertNoteString = "insert into trms_notes values(default, ?, ?, ?)";
-	try(Connection conn = connectUtil.createConnection();
-		PreparedStatement createNoteStmt = conn.prepareStatement(insertNoteString)){
-		createNoteStmt.setInt(1, case_id);
-		createNoteStmt.setString(2, body);
-		createNoteStmt.setInt(3, employee_id);
-		int row = createNoteStmt.executeUpdate();
-		return row > 0;
-	}catch(SQLException e) {
-		e.printStackTrace();
-	}
-	return false;
-}
-	
-public ArrayList<TRMSNotes> readNotes(int case_id) {
-	ArrayList<TRMSNotes> fetchedNotes = null;
-	String readNoteString = "select first_name, last_name, email, note_id, case_id, body from trms_employees  where case_id = ?";
-	try(Connection conn = connectUtil.createConnection();
-		PreparedStatement readNoteStmt = conn.prepareStatement(readNoteString)){
-		readNoteStmt.setInt(1, case_id);
-		ResultSet rs = readNoteStmt.executeQuery();
-		while( rs.next()){
-			fetchedNotes.add(new TRMSNotes(rs.getInt("case_id"),rs.getInt("note_id"),rs.getString("body"),rs.getString("email"), 
-					rs.getString("first_name"), rs.getString("last_name")));
-					
-		}
-		return fetchedNotes;
-	}catch(SQLException e) {
-	
-	e.printStackTrace();
-	}
-	return null;
-}
 
-public boolean deleteNote(int note_id) {
-	String deleteNoteString = "delete from trms_notes where note_id = ?";
-	try(Connection conn = connectUtil.createConnection();
-		PreparedStatement deleteNoteStmt = conn.prepareStatement(deleteNoteString)){
-		deleteNoteStmt.setInt(1, note_id);
-		int row = deleteNoteStmt.executeUpdate();
-		return row > 0;
-	}catch(SQLException e) {
 	
-	e.printStackTrace();
-	}
-	return false;
-}
+
 	
 }
 

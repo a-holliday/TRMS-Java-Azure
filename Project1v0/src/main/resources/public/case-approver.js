@@ -25,7 +25,7 @@ window.onload = function () {
     //Initialize xhr object
     let xhr = new XMLHttpRequest();
     let xhr2 = new XMLHttpRequest();
-    let xhr3 = new XMLHttpRequest();
+    let xhr4 = new XMLHttpRequest();
     //console.log(getCookie("employee_id"))
     const url = "/case/" + getCookie("case_id");
     const url2 = "/employee/" + getCookie("employee_id");
@@ -61,8 +61,9 @@ window.onload = function () {
                             employee = JSON.parse(xhr2.responseText);
 
 
-                            xhr3.open("GET", '/employee/' + requestor_id, true);
-                            xhr3.send();
+                            xhr4.open("GET", url4, true);
+
+                            xhr4.send();
 
 
 
@@ -71,15 +72,41 @@ window.onload = function () {
 
                     }
 
-                    xhr3.onreadystatechange = function () {
-                        if (xhr3.readyState == 4 && xhr3.status === 200) {
-                            let requestor = JSON.parse(xhr3.responseText);
-                            populateHome(reimbursement, employee, requestor);
+
+
+
+
+
+
+                    //let reimbursement = JSON.parse(xhr.responseText);
+                    let url4 = "/attachments/" + reimbursement.case_id;
+
+
+                    xhr4.open("GET", url4, true);
+
+                    xhr4.send();
+
+                    xhr4.onreadystatechange = function () {
+                        if (xhr4.readyState == 4 && xhr4.status === 200) {
+                            attachments = JSON.parse(xhr4.responseText);
+
+
+                            populateHome(reimbursement, employee, attachments);
 
 
 
 
                         }
+
+
+
+
+
+
+
+
+
+
 
 
                     }
@@ -88,26 +115,15 @@ window.onload = function () {
 
 
 
-
-
-
-
-
-
-
-
         }
     }
-
     //opens up the request
     xhr.open("GET", url, true);
     //sends request
     xhr.send();
-
-
 }
 
-let populateHome = function (reimbursement, employee, requestor) {
+let populateHome = function (reimbursement, employee, attachments) {
     let table = document.createElement("table");
 
     let tr_case_id = document.createElement("div")
@@ -336,7 +352,7 @@ let populateHome = function (reimbursement, employee, requestor) {
     let td_type = document.createElement("div");
     td_type.innerHTML = "Training Type: " + reimbursement.training_type;
     tr_type.appendChild(td_type);
-    table.appendChild(tr_address);
+    table.appendChild(tr_type);
 
 
 
@@ -404,6 +420,122 @@ let populateHome = function (reimbursement, employee, requestor) {
     table.appendChild(tr_description);
 
 
+    let tr_attachment = document.createElement("div");
+
+
+    let attachmentForm = document.createElement("form");
+    attachmentForm.method = "POST";
+    attachmentForm.action = "/attachment/" + reimbursement.case_id;
+    attachmentForm.enctype = 'multipart/form-data';
+    let attachmentInput = document.createElement("input");
+    attachmentInput.type = "file";
+    attachmentInput.required = "true";
+    attachmentInput.multiple = "true";
+    attachmentInput.name = "files";
+    let attachmentButton = document.createElement("button");
+    attachmentButton.className = "submit";
+    attachmentButton.type = "submit";
+    attachmentButton.innerHTML = "Add File";
+    attachmentForm.appendChild(attachmentInput);
+    attachmentForm.appendChild(attachmentButton);
+    tr_attachment.appendChild(attachmentForm);
+
+    for (attachment of attachments) {
+        console.log(attachment);
+        let preString;
+        let attachmentlink = document.createElement("a");
+        attachmentlink.innerHTML = attachment.attachmentName;
+        let extension = attachment.attachmentName.split(".").pop();
+        switch (extension) {
+            case 'png':
+                preString = "data:image/png;base64,";
+                break;
+
+            case 'jpg':
+            case 'jpeg':
+                preString = "data:image/jpeg;base64,";
+                break;
+            case 'pdf':
+                preString = "application/pdf";
+                break;
+            case 'ppt':
+                preString = "application/vnd.ms-powerpoint";
+                break;
+            case 'msg':
+                preString = "application/vnd.ms-outlook";
+                break;
+        }
+
+
+        attachmentlink.style.display = "block";
+        attachmentlink.download = attachment.attachmentName;
+        attachmentlink.href = preString + attachment.attachmentData;
+        tr_attachment.appendChild(attachmentlink);
+
+    }
+
+    table.appendChild(tr_attachment);
+
+
+
+
+    let tr_message = document.createElement("div");
+    let messageHeader = document.createElement("h3");
+    messageHeader.innerHTML = "Send Message";
+    let messageForm = document.createElement("form");
+    messageForm.method = "POST";
+    messageForm.action = "/message/approve/" + reimbursement.case_id + "/" + getCookie("employee_id");
+
+    let messageSubjectInput = document.createElement("input");
+    messageSubjectInput.type = "text";
+    messageSubjectInput.style.display = "block";
+    messageSubjectInput.placeholder = "Subject"
+    messageSubjectInput.required = "true";
+    messageSubjectInput.name = "subject";
+
+    let messageRecieverInput = document.createElement("input");
+    messageRecieverInput.placeholder = "Reciever";
+    messageRecieverInput.style.display = "block";
+    messageRecieverInput.type = "text";
+    messageRecieverInput.required = "true"
+    messageRecieverInput.name = "reciever";
+
+    let messageBodyInput = document.createElement("textarea");
+    messageBodyInput.style.height = "200px";
+    messageBodyInput.style.display = "block";
+    messageBodyInput.type = "textarea";
+    messageBodyInput.placeholder = "Enter message here...";
+    messageBodyInput.required = "true";
+    messageBodyInput.name = "body";
+
+    messageSubjectInput.className = "send";
+    messageRecieverInput.className = "send";
+    messageBodyInput.className = "send";
+
+
+    let messageButton = document.createElement("button");
+    messageButton.className = "submit";
+    messageButton.type = "submit";
+    messageButton.innerHTML = "Send";
+
+    messageForm.appendChild(messageSubjectInput);
+    messageForm.appendChild(messageRecieverInput);
+    messageForm.appendChild(messageBodyInput);
+    messageForm.appendChild(messageButton);
+    tr_message.appendChild(messageHeader);
+    tr_message.appendChild(messageForm);
+    table.appendChild(tr_message);
+
+
+    messageForm.appendChild(messageSubjectInput);
+    messageForm.appendChild(messageRecieverInput);
+    messageForm.appendChild(messageBodyInput);
+    messageForm.appendChild(messageButton);
+    tr_message.appendChild(messageHeader);
+    tr_message.appendChild(messageForm);
+    table.appendChild(tr_message);
+
+
 
 
 
@@ -411,11 +543,5 @@ let populateHome = function (reimbursement, employee, requestor) {
     let brk = document.createElement("br");
     document.querySelector("body").appendChild(brk);
     document.querySelector("body").appendChild(brk);
-
-
-
-
-
-
 
 }

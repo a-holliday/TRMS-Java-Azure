@@ -97,12 +97,16 @@ let populateHome = function (employee) {
     let linkItemPending = document.createElement("a");
     let listItemApproved = document.createElement("li");
     let linkItemApproved = document.createElement("a");
+    let listItemMessage = document.createElement("li")
+    let linkItemMessage = document.createElement("a")
     let listItemLogout = document.createElement("li");
     let linkItemLogout = document.createElement("a");
+
 
     listItemRequest.appendChild(linkItemRequest);
     listItemPending.appendChild(linkItemPending);
     listItemApproved.appendChild(linkItemApproved);
+    listItemMessage.appendChild(linkItemMessage);
     listItemLogout.appendChild(linkItemLogout);
 
     linkItemRequest.appendChild(document.createTextNode("Request Reimbursement"));
@@ -114,13 +118,21 @@ let populateHome = function (employee) {
     linkItemApproved.appendChild(document.createTextNode("Check Your Resolved Reimbursements"));
     linkItemApproved.href = "/completed";
 
+    linkItemMessage.appendChild(document.createTextNode("Check Your Messages"));
+    linkItemMessage.href = "/messages";
+
     linkItemLogout.appendChild(document.createTextNode("Logout"));
     linkItemLogout.href = "/logout";
+    linkItemLogout.addEventListener("click", function () {
+        document.cookie = "employee_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "case_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    });
 
 
     linksList.appendChild(listItemRequest);
     linksList.appendChild(listItemPending);
     linksList.appendChild(listItemApproved);
+    linksList.appendChild(listItemMessage);
     linksList.appendChild(listItemLogout);
 
 
@@ -138,6 +150,8 @@ let populateApproverHome = function (employee) {
     let linkItemRequest = document.createElement("a");
     let listItemPending = document.createElement("li");
     let linkItemPending = document.createElement("a");
+    let listItemMessage = document.createElement("li")
+    let linkItemMessage = document.createElement("a")
     let listItemApproved = document.createElement("li");
     let linkItemApproved = document.createElement("a");
 
@@ -151,6 +165,8 @@ let populateApproverHome = function (employee) {
     listItemPending.appendChild(linkItemPending);
     listItemApproved.appendChild(linkItemApproved);
     listItemApproveOthers.appendChild(linkItemApproveOthers);
+    listItemMessage.appendChild(linkItemMessage);
+
     listItemLogout.appendChild(linkItemLogout);
 
     linkItemApproveOthers.appendChild(document.createTextNode("Approve Reimbursements"));
@@ -165,6 +181,10 @@ let populateApproverHome = function (employee) {
     linkItemApproved.appendChild(document.createTextNode("Check Your Resolved Reimbursements"));
     linkItemApproved.href = "/completed";
 
+
+    linkItemMessage.appendChild(document.createTextNode("Check Your Messages"));
+    linkItemMessage.href = "/messages";
+
     linkItemLogout.appendChild(document.createTextNode("Logout"));
     linkItemLogout.href = "/logout";
 
@@ -178,6 +198,7 @@ let populateApproverHome = function (employee) {
     linksList.appendChild(listItemPending);
     linksList.appendChild(listItemApproved);
     linksList.appendChild(listItemApproveOthers);
+    linksList.appendChild(listItemMessage);
     linksList.appendChild(listItemLogout);
 
 

@@ -258,7 +258,7 @@ let populateHome = function (reimbursement) {
     editLink.href = "/case"
     editLink.addEventListener("mouseover", function () {
         document.cookie = "case_id=" + reimbursement.case_id;
-    })
+    });
     editLink.innerHTML = "Edit Case";
     editLinkDiv.appendChild(editLink);
     table.appendChild(editLinkDiv);

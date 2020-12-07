@@ -208,9 +208,9 @@ a {
   #mySidenav a:hover {
     left: 0; /* On mouse-over, make the elements appear as they should */
   }
-
+  
   #logout {
-    top: 80px;
+    top: 140px;
     background-color:  rgb(73, 98, 126);
 
 
@@ -220,6 +220,12 @@ a {
     top: 20px;
     background-color:  rgb(73, 98, 126);
 
+
+  }
+
+  #messages{
+      top: 80px;
+      background-color:  rgb(73, 98, 126);
 
   }
 

@@ -319,10 +319,13 @@ public void updateBencoApproval(Context ctx) {
 	if (reimbursement.getBenCoApproval() == TRMS_STATUS.APPROVED && reimbursement.getDirectSupervisorApproval() ==TRMS_STATUS.APPROVED
 		&& reimbursement.getDeptHeadApproval()== TRMS_STATUS.APPROVED && reimbursement.getEmployee_approval() == TRMS_STATUS.APPROVED) {
 		reimburseDao.finalApproval(case_id, TRMS_STATUS.APPROVED);
+		employeeDao.setAllocatedFunds(reimbursement.getEmployee_id(), reimburseDao.getAllocatedFunds(reimbursement.getEmployee_id()));
+
 		ctx.redirect("/approver");
 	}
 	if(reimbursement.getBenCoApproval() == TRMS_STATUS.DECLINED) {
 		reimburseDao.finalApproval(case_id, TRMS_STATUS.DECLINED);
+		employeeDao.setAllocatedFunds(reimbursement.getEmployee_id(), reimburseDao.getAllocatedFunds(reimbursement.getEmployee_id()));
 		ctx.redirect("/approver");
 		
 	}

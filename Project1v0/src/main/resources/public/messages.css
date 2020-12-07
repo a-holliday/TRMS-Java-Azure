@@ -12,6 +12,9 @@ label{
     text-align:center;
 }
 
+html, body { height: auto }
+
+
 body {
     background-color: #d7dde9;
     font-family: 'Ubuntu', sans-serif;
@@ -70,10 +73,28 @@ outline: none;
 box-sizing: border-box;
 border: 2px solid rgba(0, 0, 0, 0.02);
 margin-bottom: 50px;
-margin-left: 46px;
 text-align: center;
 margin-bottom: 27px;
 font-family: 'Ubuntu', sans-serif;
+}
+
+textarea {
+    width: 300px;
+    height: 300px;
+    resize: none;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin: auto;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 select{
@@ -129,6 +150,7 @@ font-family: 'Ubuntu', sans-serif;
 }
 
 .submit {
+    width:200px;
     cursor: pointer;
     border-radius: 5em;
     color: rgb(255, 255, 255);
@@ -139,8 +161,8 @@ font-family: 'Ubuntu', sans-serif;
     padding-bottom: 10px;
     padding-top: 10px;
     font-family: 'Ubuntu', sans-serif;
-    margin-left: 38%;
-    margin-top: 20px;
+    margin:auto;
+    margin-top: 25px;
     font-size: 13px;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
 }
@@ -177,7 +199,6 @@ a {
   #mySidenav a:hover {
     left: 0; /* On mouse-over, make the elements appear as they should */
   }
-
   #logout {
     top: 140px;
     background-color:  rgb(73, 98, 126);
@@ -197,5 +218,4 @@ a {
       background-color:  rgb(73, 98, 126);
 
   }
-
 

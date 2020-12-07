@@ -1,7 +1,9 @@
 package Project1v0;
 
+import Project1v0.controllers.AttachmentsController;
 import Project1v0.controllers.AuthController;
 import Project1v0.controllers.EmployeeController;
+import Project1v0.controllers.MessagesController;
 import Project1v0.controllers.ReimbursementController;
 import io.javalin.Javalin;
 
@@ -9,8 +11,11 @@ public class TRMSJavalinDriver {
 	private static EmployeeController employeeController = new EmployeeController();
 	private static AuthController authController = new AuthController();
 	private static ReimbursementController reimburseController = new ReimbursementController();
+	private static MessagesController messageController = new MessagesController();
+	private static AttachmentsController attachController = new AttachmentsController();
 	private static final String EMPLOYEE_PATH = "/employee";
 	private static final String LOGIN_PATH = "/login";
+	
 
 	public static void main(String[] args) {
 		
@@ -53,6 +58,15 @@ public class TRMSJavalinDriver {
 			app.get("/logout", ctx -> authController.logout(ctx));
 			app.get("/completed", ctx -> ctx.redirect("/completed.html"));
 			app.get("/completed/:id", ctx ->reimburseController.getCompleted(ctx));
+			app.get("/messages", ctx -> ctx.redirect("/messages.html"));
+			app.post("/message/pending/:caseid/:id/", ctx -> messageController.createMessagePending(ctx));
+			app.post("/message/approve/:caseid/:id/", ctx -> messageController.createMessageApproving(ctx));
+			app.post("/message/:caseid/:id/:recieveid", ctx -> messageController.replyMessage(ctx));
+			app.get("/messages/:id", ctx -> messageController.getMessages(ctx));
+			app.post("/message/:messageid", ctx -> messageController.deleteMessage(ctx));
+			app.post("attachment/:caseid", ctx -> attachController.createAttachment(ctx));
+			app.get("attachments/:caseid", ctx -> attachController.getAttachments(ctx));
+
 
 
 		}
