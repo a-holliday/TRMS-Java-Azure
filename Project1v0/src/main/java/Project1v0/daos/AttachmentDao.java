@@ -5,12 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
+
 
 import Project1v0.pojos.TRMSAttachments;
 import Project1v0.utils.ConnectionUtil;
 
 public class AttachmentDao {
-	
+	private Logger log = Logger.getRootLogger();
 	ConnectionUtil connectUtil = new ConnectionUtil();
 
 	
@@ -25,7 +27,8 @@ public class AttachmentDao {
 			return row > 0;
 		}
 		catch(SQLException e) {
-			e.printStackTrace();
+			log.error("Error in create attachment", e);
+			
 			return false;
 			
 		}
@@ -48,6 +51,8 @@ public class AttachmentDao {
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in get attachment", e);
+
 		}
 		return attachmentsArray;
 	}
@@ -61,6 +66,8 @@ public class AttachmentDao {
 			return row > 0 ;
 			}catch(SQLException e) {
 				e.printStackTrace();
+				log.error("Error in delete attachment", e);
+
 				return false;
 			}
 		

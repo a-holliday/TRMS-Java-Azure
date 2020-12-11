@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import org.apache.log4j.Logger;
+
 import Project1v0.utils.ConnectionUtil;
 import Project1v0.enums.TRMS_EVENT;
 import Project1v0.enums.TRMS_GRADE_FORMAT;
@@ -18,6 +21,7 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 
 	ConnectionUtil connectUtil = new ConnectionUtil();
 	EmployeeDao employeeDao = new EmployeeDao();
+	Logger log = Logger.getRootLogger();
 
 	
 	@Override
@@ -48,6 +52,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			return row > 0;
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in createReimbursement in ReimbursmentDao", e);
+
 		}
 		return false;
 	}
@@ -74,6 +80,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch (SQLException e){
 			e.printStackTrace();
+			log.error("Error in getPendingReimbursement in ReimbursmentDao", e);
+
 		}
 		return pendingReimbursements;
 	}
@@ -98,6 +106,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch (SQLException e){
 			e.printStackTrace();
+			log.error("Error in getApprovedReimbursements in ReimbursmentDao", e);
+
 		}
 		return approvedReimbursements;
 		
@@ -123,6 +133,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch (SQLException e){
 			e.printStackTrace();
+			log.error("Error in getAllApprovedReimbursements in ReimbursmentDao", e);
+
 		}
 		return approvedReimbursements;
 	}
@@ -147,6 +159,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch (SQLException e){
 			e.printStackTrace();
+			log.error("Error in getAllPendingReimbursements in ReimbursmentDao", e);
+
 		}
 		return pendingReimbursements;
 	}
@@ -171,6 +185,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch (SQLException e){
 			e.printStackTrace();
+			log.error("Error in getAllDeclinedReimbursements in ReimbursmentDao", e);
+
 		}
 		return declinedReimbursements;
 	}
@@ -196,6 +212,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch (SQLException e){
 			e.printStackTrace();
+			log.error("Error in getBencoPending in ReimbursmentDao", e);
+
 		}
 		return bencoPendingReimbursements;
 	}
@@ -221,6 +239,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch (SQLException e){
 			e.printStackTrace();
+			log.error("Error in getSup(ervisor)Pending in ReimbursmentDao", e);
+
 		}
 		return supervisorPendingReimbursements;
 	}
@@ -246,6 +266,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch (SQLException e){
 			e.printStackTrace();
+			log.error("Error in getDeptHeadPending in ReimbursmentDao", e);
+
 		}
 		return deptHeadPendingReimbursements;
 	}
@@ -264,6 +286,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in giveBencoApproval in ReimbursementDao", e);
+
 		}
 		return false;
 	}
@@ -280,6 +304,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in giveDeptHeadApproval in ReimbursementDao", e);
+
 		}
 	
 		return false;
@@ -297,7 +323,10 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in giveDirectSupAp(p)roval in ReimbursementDao", e);
+
 		}
+
 	
 		return false;
 	}
@@ -316,6 +345,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in giveDirectPreSupAp(p)roval in ReimbursementDao", e);
+
 		}
 	
 		return false;
@@ -332,6 +363,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in giveDirectSupAp(p)roval in ReimbursementDao", e);
+
 		}
 	
 		return false;
@@ -357,6 +390,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in finalApproval in ReimbursementDao", e);
+
 		}
 	
 		return false;
@@ -378,6 +413,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in employeeApproval in ReimbursementDao", e);
+
 		}
 		return false;
 	}
@@ -395,6 +432,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			rs.next();
 			return rs.getFloat(1);
 		}catch(SQLException e) {
+			log.error("Error in getAllocatedFunds in ReimbursementDao", e);
+
 			
 		}
 		return -1.0f;
@@ -421,6 +460,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 			return selectedReimbursement;
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in readReimbursement in ReimbursementDao", e);
+
 		}
 		return selectedReimbursement;
 	}
@@ -434,6 +475,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 				return row > 0;
 		}catch (SQLException e ) {
 			e.printStackTrace();
+			log.error("Error in deleteReimbursement in ReimbursementDao", e);
+
 		}
 		return false;
 	}
@@ -450,6 +493,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in updateTrainingDate in ReimbursementDao", e);
+
 		
 			
 		}
@@ -469,6 +514,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in updateTrainingTime in ReimbursementDao", e);
+
 		
 			
 		}
@@ -489,6 +536,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in updateTrainingZipcode in ReimbursementDao", e);
+
 		
 			
 		}
@@ -508,6 +557,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in updateTrainingAddress in ReimbursementDao", e);
+
 		
 			
 		}
@@ -527,6 +578,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in updateTrainingState in ReimbursementDao", e);
+
 		
 			
 		}
@@ -546,6 +599,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in updateTrainingCost in ReimbursementDao", e);
+
 		
 			
 		}
@@ -565,6 +620,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in updateTrainingType in ReimbursementDao", e);
+
 		
 			
 		}
@@ -584,7 +641,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
-		
+			log.error("Error in updateJustification in ReimbursementDao", e);
+
 			
 		}
 		return false;
@@ -603,6 +661,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in updateDescription in ReimbursementDao", e);
+
 		
 			
 		}
@@ -622,6 +682,7 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in updateHoursMissed in ReimbursementDao", e);
 		
 			
 		}
@@ -641,6 +702,8 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in updateEmployeeApproval in ReimbursementDao", e);
+
 		
 			
 		}
@@ -661,6 +724,8 @@ public boolean updateCoverage(int case_id, float coverage) {
 	
 	}catch (SQLException e) {
 		e.printStackTrace();
+		log.error("Error in updateCoverage in ReimbursementDao", e);
+
 	
 		
 	}
@@ -680,6 +745,8 @@ public boolean updateTrainingGrade(int case_id, TRMS_GRADE_FORMAT grade) {
 	
 	}catch (SQLException e) {
 		e.printStackTrace();
+		log.error("Error in updateTrainingGrade in ReimbursementDao", e);
+
 	
 		
 	}

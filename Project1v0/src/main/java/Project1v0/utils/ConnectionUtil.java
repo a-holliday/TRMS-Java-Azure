@@ -10,9 +10,8 @@ public class ConnectionUtil {
 	
 	public Connection createConnection() throws SQLException {
 		
-	    conn = DriverManager.getConnection("jdbc:postgresql://trms-postgres-aholliday.postgres.database.azure.com:5432/postgres?", "aholliday@trms-postgres-aholliday", "CRedit6688");
+	    conn = DriverManager.getConnection("URL", "username", "password");
 		
-	    //jdbc:postgresql://trms-postgres-aholliday.postgres.database.azure.com:5432/{your_database}?user=aholliday@trms-postgres-aholliday&password={your_password}&sslmode=require
 	    
 		return conn;
 		

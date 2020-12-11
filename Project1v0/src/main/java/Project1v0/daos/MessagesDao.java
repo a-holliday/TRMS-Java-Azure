@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import Project1v0.pojos.TRMSEmployee;
 import Project1v0.pojos.TRMSMessage;
 import Project1v0.utils.ConnectionUtil;
@@ -15,6 +17,7 @@ public class MessagesDao {
 	ConnectionUtil connectUtil = new ConnectionUtil();
 	private EmployeeDao employeeDao = new EmployeeDao();
 	private ReimbursementDao reimburseDao = new ReimbursementDao();
+	private Logger log = Logger.getRootLogger();
 
 	public boolean createMessage( String subject, int sender, int reciever, String body, int caseId) {
 		String createMessageString = "insert into trms_messages values(default, ?, ?, ?, ?, ?)";
@@ -30,6 +33,8 @@ public class MessagesDao {
 			return row > 0;
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in createMessage in Message dao", e);
+
 				
 			return false;
 		}
@@ -48,6 +53,8 @@ public class MessagesDao {
 			return description;
 		}catch (SQLException e){
 			e.printStackTrace();
+			log.error("Error in getDescription in Message dao", e);
+
 		}
 		return description;
 	}
@@ -72,6 +79,8 @@ public class MessagesDao {
 			return fetchedMessages;
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in getAllMessages in Message dao", e);
+
 			return fetchedMessages;
 		}
 	}
@@ -86,7 +95,8 @@ public class MessagesDao {
 			return row > 0;
 		}catch(SQLException e) {
 			e.printStackTrace();
-				
+			log.error("Error in deleteMessage in Message dao", e);
+
 			return false;
 		}
 	}

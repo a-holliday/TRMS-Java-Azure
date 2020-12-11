@@ -6,9 +6,13 @@ import Project1v0.pojos.Cookie;
 import Project1v0.pojos.TRMSEmployee;
 import Project1v0.services.AuthServiceHash;
 import io.javalin.http.Context;
+import org.apache.log4j.Logger;
+
+
 
 public class AuthController {
 	
+private Logger log = Logger.getRootLogger();
 private AuthServiceHash auth = new AuthServiceHash();
 private EmployeeDao employeeDao = new EmployeeDao();
 	
@@ -17,6 +21,7 @@ private EmployeeDao employeeDao = new EmployeeDao();
 		String password = ctx.formParam("password");
 		boolean authenticated = auth.authenticateUser(email, password);
 		if (authenticated) {
+			log.info("Successful login");
 			int employee_id = employeeDao.getEmployeeIdByEmail(email);
 			TRMSEmployee employee = employeeDao.readEmployee(employee_id);
 			ctx.cookieStore("employee_id", employee_id);
@@ -34,7 +39,8 @@ private EmployeeDao employeeDao = new EmployeeDao();
 			ctx.cookieStore("security" + email, auth.createToken(email));
 		*/
 		} else {
-		
+			log.info("Login Failure");
+
 			ctx.redirect("/login.html?error=failed-login");
 		}
 	}

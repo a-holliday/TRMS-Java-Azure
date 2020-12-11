@@ -8,10 +8,13 @@ import java.sql.SQLException;
 import Project1v0.enums.TRMS_ROLE;
 import Project1v0.pojos.TRMSEmployee;
 import Project1v0.utils.ConnectionUtil;
+import org.apache.log4j.Logger;
+
 
 public class EmployeeDao implements EmployeeDaoInterface {
 	
 	ConnectionUtil connectUtil = new ConnectionUtil();
+		private Logger log = Logger.getRootLogger();
 
 	@Override
 	public boolean createEmployee(TRMSEmployee employee) {
@@ -32,6 +35,7 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
+			log.error("Error in create Employee dao", e);
 		}
 		return false;
 	}
@@ -64,6 +68,8 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in read Employee dao", e);
+
 		}
 		return retrievedEmployee;
 	}
@@ -82,6 +88,8 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in update Employee dao", e);
+
 		}
 				
 		return false;
@@ -97,7 +105,9 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			int row = updateEmployeeStmt.executeUpdate();
 			return row > 0;
 		}catch(SQLException e) {
-			
+			e.printStackTrace();
+			log.error("Error in update Employee dao", e);
+
 		}
 		return false;
 	}
@@ -112,6 +122,8 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			return row > 0;
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in delete Employee dao", e);
+
 		}
 		return false;
 	}
@@ -126,6 +138,9 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			int row = updateBencoStmt.executeUpdate();
 			return row > 0;
 		}catch(SQLException e) {
+			e.printStackTrace();
+			log.error("Error in update Benco Employee dao", e);
+
 			
 		}
 		return false;
@@ -143,6 +158,9 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			int row = updateDirectSupervisorStmt.executeUpdate();
 			return row > 0;
 		}catch(SQLException e) {
+			e.printStackTrace();
+			log.error("Error in update Direct Supervisor Employee dao", e);
+
 			
 		}
 		return false;
@@ -159,6 +177,9 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			int row = updateDeptHeadStmt.executeUpdate();
 			return row > 0;
 		}catch(SQLException e) {
+			e.printStackTrace();
+			log.error("Error in update Employee Department Head Employee dao", e);
+
 			
 		}
 		return false;
@@ -177,6 +198,8 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in get employee by email Employee dao", e);
+
 		}
 		return employee_id;
 	}
@@ -198,6 +221,8 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error set allocated funds Employee dao", e);
+
 		}
 		return false;
 		
@@ -216,6 +241,8 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			return maxFunds;
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in get max funds Employee dao", e);
+
 		}
 		return maxFunds;
 	}
@@ -231,6 +258,8 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			return row > 0;
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error authorize over funds", e);
+
 		}
 		return false;
 	}
@@ -246,6 +275,8 @@ public class EmployeeDao implements EmployeeDaoInterface {
 				return rs.next();
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in check Benco Role Employee dao", e);
+
 		}
 		return false;
 	}
@@ -261,6 +292,8 @@ public class EmployeeDao implements EmployeeDaoInterface {
 					return rs.next();
 			}catch(SQLException e) {
 				e.printStackTrace();
+				log.error("Error in check supervisor role Employee dao", e);
+
 			}
 		return false;
 	}
@@ -276,6 +309,8 @@ public class EmployeeDao implements EmployeeDaoInterface {
 					return rs.next();
 			}catch(SQLException e) {
 				e.printStackTrace();
+				log.error("Error in check department head role Employee dao", e);
+
 			}
 		return false;
 	}
@@ -293,6 +328,8 @@ public class EmployeeDao implements EmployeeDaoInterface {
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
+			log.error("Error in check Employee dao", e);
+
 		}
 		return employee_id;
 	}
@@ -310,6 +347,8 @@ public int getAltBenco (String dept) {
 		}
 	}catch(SQLException e) {
 		e.printStackTrace();
+		log.error("Error in get alt benco Employee dao", e);
+
 	}
 	return altBenco_id;
 }
@@ -326,6 +365,8 @@ public int getBenco (String dept) {
 		}
 	}catch(SQLException e) {
 		e.printStackTrace();
+		log.error("Error in get benco Employee dao", e);
+
 	}
 	return benco_id;
 }
@@ -342,6 +383,8 @@ public int getSuper (String dept) {
 		}
 	}catch(SQLException e) {
 		e.printStackTrace();
+		log.error("Error in get super(visor) Employee dao", e);
+
 	}
 	return super_id;
 }
@@ -358,6 +401,8 @@ public int getDeptHead (String dept) {
 		}
 	}catch(SQLException e) {
 		e.printStackTrace();
+		log.error("Error in gt department head Employee dao", e);
+
 	}
 	return deptHead_id;
 }
