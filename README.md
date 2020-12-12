@@ -41,4 +41,5 @@ The email addresses are
 All passwords are password, with these accounts you should be able to make and  approve requests, send messages and upload files, the benefit coordinator for everyone besides the Main Benefit Coordinator is the morganfreeman@notmail account, the alternative benefit coordinator is the main benefits coordinator.  
 
 
-
+## License
+No license on project. 
