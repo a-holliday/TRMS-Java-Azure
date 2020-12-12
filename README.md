@@ -32,11 +32,11 @@ The Tuition Reimbursement System, TRMS, allows users to submit reimbursements fo
 The project is deployed on Azure so you can get to the login screen at http://52.167.156.163/login
 There are four employee types Benefit Coordinator, Employee, Department Head and Direct Supervisor.
 The email addresses are 
-acaciaholliday@revature.net - Employee role
-kdeaton@notmail.com - Supervisor role
-carolejackson@notmail.com -Department Head
-morganfreeman@notmail.com - Main Benefit Coordinator
-benjaminfrank@notmail.com - Alternative benefit Coordinator
+- acaciaholliday@revature.net - Employee role
+- kdeaton@notmail.com - Supervisor role
+- carolejackson@notmail.com -Department Head
+- morganfreeman@notmail.com - Main Benefit Coordinator
+- benjaminfrank@notmail.com - Alternative benefit Coordinator
 
 All passwords are password, with these accounts you should be able to make and  approve requests, send messages and upload files, the benefit coordinator for everyone besides the Main Benefit Coordinator is the morganfreeman@notmail account, the alternative benefit coordinator is the main benefits coordinator.  
 
